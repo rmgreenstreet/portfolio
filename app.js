@@ -38,10 +38,12 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//set up server
 let port = process.env.PORT;
 if (port == null || port == "" || typeof port === 'undefined') {
   port = 8080;
 }
+
 app.listen(port, () => {
 	console.log(`Server has started, listening on port ${port}`);
 });
