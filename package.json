@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.0.6",
+    "@sendgrid/mail": "^6.5.3",
     "bootstrap": "^4.4.1",
     "cloudinary": "^1.19.0",
     "connect-flash": "^0.1.1",
