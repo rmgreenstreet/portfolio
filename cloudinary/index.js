@@ -23,13 +23,13 @@ const storage = cloudinaryStorage({
     }
   });
 
-async function imageDelete(public_id, post) {
+async function imageDelete(public_id, project) {
     //remove image from cloudinary
     await cloudinary.uploader.destroy(public_id);
     // delete image from post.images array
-    for(const image of post.images) {
+    for(const image of project.images) {
         if(image.public_id === public_id) {
-            post.images.splice(post.images.indexOf(image), 1);
+            project.images.splice(project.images.indexOf(image), 1);
         }
     }
 }

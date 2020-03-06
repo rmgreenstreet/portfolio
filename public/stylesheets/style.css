@@ -1,6 +1,7 @@
 html {
   margin:0;
   padding:0;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -26,6 +27,10 @@ header {
 main {
   padding:0;
   margin:0;
+}
+
+main:after {
+  margin-bottom:-3rem;
 }
 
 a {
@@ -56,7 +61,7 @@ img {
 section {
   min-height:100vh;
   width:100%;
-  padding-top:3rem;
+  padding-top:4rem;
   margin:0;
 }
 
@@ -122,10 +127,15 @@ section {
 }
 
 footer {
+  position:sticky;
+  position:-webkit-sticky;
   margin-right:0 ;
   padding:0;
   width:100%;
   max-width:100%;
-  height:auto;
-  min-height:3rem;
+  height:3rem;
+}
+
+footer, main:after {
+  height: 3rem; 
 }

@@ -5,6 +5,11 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const expressSession = require('express-session');
+const User = require('./models/user');
+const methodOverride = require('method-override');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -32,6 +37,36 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride("_method"));
+var expiryDate = new Date(Date.now() + 60 * 60 * 1000 * 6) // 6 hours
+app.use(expressSession({
+  secret:"chickory chick",
+  resave:false,
+  saveUninitialized:false,
+  name: 'sessionId',
+  secure:true,
+  httpOnly:true,
+  expires: expiryDate
+  }));
+app.use(passport.initialize());
+app.use(passport.session());app.disable('x-powered-by');
+app.use(function(req, res, next){
+	res.locals.currentUser = req.user;
+	// res.locals.error = req.flash("error");
+	// res.locals.success = req.flash("success");
+	next();
+});
+
+// CHANGE: USE "createStrategy" INSTEAD OF "authenticate"
+passport.use(User.createStrategy());
+
+// use static authenticate method of model in LocalStrategy
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

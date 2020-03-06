@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const { getLandingPage, postContact } = require('../controllers')
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  console.log('getting home page');
-  res.render('index', { title: 'Robert Greenstreet - Home' });
-});
+router.get('/', getLandingPage);
+
+//post new project
+router.post('/contact', postContact)
 
 module.exports = router;

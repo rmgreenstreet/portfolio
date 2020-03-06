@@ -1,4 +1,5 @@
-<%- layout('layouts/boilerplate') %>
+<%- include('../partials/header') %>
+
 <div class="container">
     <h1><%= currentUser.username %>'s Profile</h1>
     <div class="row" id="full-profile">
@@ -14,77 +15,123 @@
             <div class="card-body">
                 <div class="card-text">
                     <p>
-                        <a href="">Edit Profile</a>
-                    </p>
-                    <p>
-                        <a href="">Reset Password</a>
+                        <a href="#" id="show-profile-edit" class="btn btn-primary js-slide-trigger">Edit Profile</a>
                     </p>
                 </div>
             </div>
         </div>
         <div class="col-8">
-            <div class="card">
+            <div class="card mb-4" id="projects">
                 <div class="card-header">
                     <div class="card-title">
-                        <h2>Recent Posts:</h2>
+                        <h2>Recent Projects:</h2>
                     </div>
                 </div>
                 <div class="card-body">
-                    <% if(posts.length) { %> 
-                        <% posts.forEach(function(post) { %>
-                            <div class="post">
-                                <a href="posts/<%= post.id %>">
+                    <% if(projects.length) { %> 
+                        <% projects.forEach(function(project) { %>
+                            <div class="project">
+                                <a href="projects/<%= project.id %>">
                                     <h3>
-                                    <%= post.title %>
+                                    <%= project.title %>
                                     </h3>   
                                 </a>
                                 <p>
-                                    <%= post.description.substr(0,50) %>...
-                                    <a href="posts/<%= post.id %>">Read More</a>
+                                    <%= project.description.substr(0,50) %>...
+                                    <a href="projects/<%= project.id %>">Read More</a>
                                 </p>
                                 <hr>
                             </div>
                         <% }) %>
-                        <a href="">See All Posts</a>
+                        <a href="">See All Projects</a>
                     <% } else { %>
-                        <div><p>You have not created any posts</p></div>
+                        <div><p>You have not created any projects</p></div>
                     <% } %>
+                    <a href="#" class="btn btn-primary js-slide-trigger" id="show-add-project">Add Project</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <div id="add-project" class="mb-2">
+                                <h5>Add Project:</h5>
+                                <form class="" action="/projects" method="POST" enctype="multipart/form-data">
+                                    <div class="input-group input-group-sm mb-3">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text" id="project[title]-label">Title</span>
+                                        </div>
+                                        <input type="text" name="project[title]" id="project[title]" class="form-control" aria-label="project[title]" aria-describedby="project[title]-label" autofocus required>
+                                        <label for="project[title]" class="sr-only">Title</label>
+                                    </div>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text" id="project[description]-label">Description</span>
+                                        </div>
+                                        <input type="text" name="project[description]" id="project[description]" class="form-control" aria-label="project[description]" aria-describedby="project[description]-label">
+                                        <label for="project[description]" class="sr-only">Description</label>
+                                    </div>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="project[link]-label">Link</span>
+                                        </div>
+                                        <input type="url" name="project[link]" id="project[link]" class="form-control" aria-label="project[link]" aria-describedby="project[link]-label" placeholder="https://_____.herokuapp.com">
+                                        <label for="project[link]" class="sr-only">Link</label>
+                                    </div>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="project[github]-label">Github Repository</span>
+                                        </div>
+                                        <input type="url" name="github" id="github" class="form-control" aria-label="github" aria-describedby="github-label" placeholder="https://github.com/rmgreenstreet/____">
+                                        <label for="project[github]" class="sr-only">Github Repository:</label>
+                                    </div>
+                                    <div id="validation-message" class="alert mb3 d-none">
+                                        
+                                    </div>
+                                        <input type="text" name="project[author]" id="project[author]" class="form-control" value="<%= currentUser.id %>" hidden>
+                                    <label class="btn btn-secondary mb-3 w-100">
+                                        Choose Project Thumbnail <input type="file" name="image" id="image" hidden>
+                                    </label>
+                                        <label class="sr-only" for="image">Project Image</label>
+                                    <button type="submit" class="btn btn-primary" id="submit-project">Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-12">
-            <div id="profile-edit">
+        <div class="col-12 col-md-6">
+            <div id="profile-edit" class="mb-4">
                 <h5>Update Profile:</h5>
-                <form class="" action="/profile?_method=PUT" method="POST" enctype="multipart/form-data">
+                <form class="" action="/users/profile?_method=PUT" method="POST" enctype="multipart/form-data">
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="username-label">Username</span>
                         </div>
                         <input type="text" name="username" id="username" class="form-control" aria-label="username" aria-describedby="username-label" value="<%= currentUser.username %>" autofocus required>
-                        <label for="username" class="d-none">Username</label>
+                        <label for="username" class="sr-only">Username</label>
                     </div>
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="current-password-label">Current Password</span>
                         </div>
                         <input type="password" name="currentPassword" id="current-password" class="form-control" aria-label="current-password" aria-describedby="current-password-label">
-                        <label for="current-password" class="d-none">Current Password</label>
+                        <label for="current-password" class="sr-only">Current Password</label>
                     </div>
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="new-password-label">New Password</span>
                         </div>
                         <input type="password" name="newPassword" id="new-password" class="form-control" aria-label="new-password" aria-describedby="new-password-label" placeholder="New Password">
-                        <label for="new-password" class="d-none">New Password:</label>
+                        <label for="new-password" class="sr-only">New Password:</label>
                     </div>
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="password-confirmation-label">Confirm New Password</span>
                         </div>
                         <input type="password" name="passwordConfirmation" id="password-confirmation" class="form-control" aria-label="password-confirmation" aria-describedby="password-confirmation-label" placeholder="Confirm New Password">
-                        <label for="password-confirmation" class="d-none">Confirm New Password:</label>
+                        <label for="password-confirmation" class="sr-only">Confirm New Password:</label>
                     </div>
                     <div id="validation-message" class="alert mb3 d-none">
                         
@@ -94,13 +141,13 @@
                             <span class="input-group-text" id="email-label">Email</span>
                         </div>
                         <input type="email" name="email" id="email" class="form-control" aria-label="email-label" aria-describedby="email-label" value="<%= currentUser.email %>" required>
-                        <label for="email" class="d-none">Email Address:</label>
+                        <label for="email" class="sr-only">Email Address:</label>
                     </div>
                     <small>(deletes existing image)</small>
                     <label class="btn btn-secondary mb-3 w-100">
                         Choose New Profile Picture <input type="file" name="image" id="image" hidden>
                     </label>
-                        <label class="d-none" for="image">Profile Image</label>
+                        <label class="sr-only" for="image">Profile Image</label>
                     <button type="submit" class="btn btn-primary" id="update-profile">Submit</button>
                 </form>
             </div>
@@ -110,4 +157,6 @@
 <script>
 
 </script>
-<script src="js/profile.js"></script>
+<!-- <script src="js/profile.js"></script> -->
+
+<%- include('../partials/footer') %>
