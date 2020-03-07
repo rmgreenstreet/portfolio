@@ -58,7 +58,24 @@
                 <div class="col col-md-10 mx-auto bg-transparent">
                     <div class="row">
                         <!-- loop over projects showing screenshots & names in a grid -->
-                        <div class="col">
+                        <% for (let project of projects) { %>
+
+                            <div class="col">
+                                <div class="card bg-transparent project">
+                                    <%- projectImages[projects.indexOf(project)] %>
+                                    <div class="card-body">
+                                        <h3 class="card-title"><%= project.name.replace('rgreenstreet-','').toUpperCase(); %></h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <% } %>
+                        
+
+
+
+
+                        <!-- <div class="col">
                             <div class="card bg-transparent project">
                                 <img src="/images/sampleproject.png" alt="" class="card-img-top">
                                 <div class="card-body">
@@ -81,7 +98,7 @@
                                     <h3 class="card-title">Project 3</h3>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
