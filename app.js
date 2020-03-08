@@ -17,16 +17,16 @@ const usersRouter = require('./routes/users');
 const app = express();
 
 //connect to database
-mongoose.connect(process.env.DATABASE_URL,{
-	useNewUrlParser:true, 
-	useUnifiedTopology:true,
-  useFindAndModify: false,
-  useCreateIndex:true
-}).then(() => {
-	console.log('Connected to Mongo DB')
-}).catch(err => {
-	console.log('error: ',err.message)
-});
+// mongoose.connect(process.env.DATABASE_URL,{
+// 	useNewUrlParser:true, 
+// 	useUnifiedTopology:true,
+//   useFindAndModify: false,
+//   useCreateIndex:true
+// }).then(() => {
+// 	console.log('Connected to Mongo DB')
+// }).catch(err => {
+// 	console.log('error: ',err.message)
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

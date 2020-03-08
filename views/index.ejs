@@ -13,19 +13,30 @@
                 <div class="object">
                     {
                         <div class="pair">
-                            <span class="key">firstName</span> : <span class="value">"Robert",</span>
+                            <span class="key">firstName</span> : <span class="value">"Robert"</span>,
                         </div>
                         <div class="pair">
-                            <span class="key">lastName</span> : <span class="value">"Greenstreet",</span>
+                            <span class="key">lastName</span> : <span class="value">"Greenstreet"</span>,
                         </div>
                         <div class="pair">
-                            <span class="key">specialty</span> : <span class="value">"Back-end Implementation",</span>
+                            <span class="key">specialty</span> : <span class="value">"Back-end Implementation"</span>,
                         </div>
                         <div class="pair">
-                            <span class="key">description</span> : <span class="value">"Robert Greenstreet is a junior full stack MEAN developer seeking part-time W-2 employment.",</span>
+                            <span class="key">description</span> : <span class="value">"Robert Greenstreet is a junior full stack MEAN developer seeking part-time W-2 employment."</span>,
                         </div>
                         <div class="pair">
-                            <span class="key">twitter</span> : <span class="value">"<a href="https://twitter.com/grnstimagining">@grnstimagining</a>",</span>
+                            <span class="key">networks</span> : <span class="value">
+                                <div class="object">
+                                    {
+                                    <div class="pair">
+                                        <span class="key">twitter</span> : <span class="value">"<a href="https://twitter.com/grnstimagining" target="_blank">@grnstimagining</a>"</span>,
+                                    </div>
+                                    <div class="pair">
+                                        <span class="key">github</span> : <span class="value">"<a href="https://github.com/rmgreenstreet/" target="_blank">rmgreenstreet</a>"</span>
+                                    </div>
+                                    }
+                                </div>
+                            </span>
                         </div>
                         <!-- <div class="pair">
                             <span class="key">email</span> : <span class="value">"<a href="mailto:robert@greenstreetimagining.com">robert@greenstreetimagining.com</a>"</span>
@@ -39,13 +50,14 @@
         <div class="container">
             <h1 class="text-center">Work</h1>
             <div class="row">
-                <div class="carousel-slide mb-4 col col-md-8 mx-auto">
+                <div class="carousel-slide mb-4 col col-md-8 mx-auto" data-ride="carousel">
                     <div class="carousel-inner">
 
                         <!-- loop over projects0 showing screenshots, names, descriptions each as a slide in the carousel -->
                         <% for (let project of projects) { %>
+                            <% const foundImage = projectImages.find(image => image.public_id.includes(project.id)); %>
                             <div class="carousel-item project-slide<%= (projects.indexOf(project) === 0 ? ' active' : '') %>">
-                                <%- projectImages[projects.indexOf(project)] %>
+                                <img src="<%= ( foundImage ? foundImage.secure_url : '/images/biglogo.png' ) %>" class="d-block w-100" alt="<%= project.name.replace('rgreenstreet-','').toUpperCase(); %>">
                                 <div class="carousel-caption d-none d-md-block">
                                     <a href="<%= project.web_url %>" target="_blank"><h5><%= project.name.replace('rgreenstreet-','').toUpperCase(); %></h5></a>
                                 </div>
@@ -65,10 +77,11 @@
                             <% if(project.name.includes('portfolio')) { %>
                                 <% continue; %>
                             <% } %>
+                            <% const foundImage = projectImages.find(image => image.public_id.includes(project.id)); %>
                             <div class="col">
                                 <a href="<%= project.web_url %>" target="_blank">
-                                    <div class="card bg-transparent project-grid">
-                                        <%- projectImages[projects.indexOf(project)] %>
+                                    <div class="card bg-transparent project-grid" id="<%= project.id %>">
+                                        <img src="<%= ( foundImage ? foundImage.secure_url : '/images/biglogo.png' ) %>" class="card-img-top" alt="<%= project.name.replace('rgreenstreet-','').toUpperCase(); %>">
                                         <div class="card-body">
                                             <h3 class="card-title"><%= project.name.replace('rgreenstreet-','').toUpperCase(); %></h3>
                                         </div>

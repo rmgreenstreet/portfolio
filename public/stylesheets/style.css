@@ -34,7 +34,7 @@ main:after {
 }
 
 a {
-  color: #00B7FF;
+  color: white;
 }
 
 nav.scrolled {
@@ -100,6 +100,10 @@ section {
   color:purple;
 }
 
+.object {
+  color:white;
+}
+
 .object,.pair {
   margin-left:2rem;
   display:block;
@@ -121,6 +125,14 @@ section {
   min-height:200px;
 }
 
+.project-slide h5 {
+  background-color:rgba(100,100,100,.5);
+}
+
+.project-grid img {
+  height:230px;
+}
+
 #contact {
   height:auto;
   padding-bottom:60px;
@@ -136,8 +148,9 @@ section {
 }
 
 footer {
-  position:sticky;
+  /* position:sticky;
   position:-webkit-sticky;
+  bottom:0; */
   margin-right:0 ;
   padding:0;
   width:100%;

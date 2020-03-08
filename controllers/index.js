@@ -8,8 +8,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 module.exports = {
 	// GET /
 	async getLandingPage(req, res, next) {
-        let projectImages = [];
-        
+
         //use Heroku CLI to get list of all apps and send them to the page to loop through and display in carousel/grid
         const projects = await axios.get('https://api.heroku.com/apps',{headers: 
             {
@@ -18,12 +17,12 @@ module.exports = {
             }
         });
         
-        for(let project of projects.data) {
-            //use url2png to create a screenshot of each project's home page
-            const projectImage = await cloudinary.image(project.web_url,{signed:true, type:'url2png'});
-            projectImages.push(projectImage);
-        }
-        res.render('index', { projects:projects.data, projectImages, title: 'Robert Greenstreet - Home', page:'home'});
+        const projectImages = await cloudinary.v2.search
+        .expression(`folder:portfolio/projects`)
+        .execute();
+        console.log(projectImages.resources);
+
+        res.render('index', { projects:projects.data, projectImages:projectImages.resources, title: 'Robert Greenstreet - Home', page:'home'});
     },
     async postContact(req,res,next) {
         const { firstname, lastname, email, company } = req.body;
