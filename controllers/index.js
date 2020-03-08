@@ -17,10 +17,10 @@ module.exports = {
             }
         });
         
+        //get project images from cloudinary
         const projectImages = await cloudinary.v2.search
         .expression(`folder:portfolio/projects`)
         .execute();
-        console.log(projectImages.resources);
 
         res.render('index', { projects:projects.data, projectImages:projectImages.resources, title: 'Robert Greenstreet - Home', page:'home'});
     },
@@ -48,7 +48,7 @@ module.exports = {
             }
             await sgMail.send(response);
             await sgMail.send(alert);
-            req.session.success = `Your message has been sent! I'll be in touch ASAP! 
+            req.session.success = `Thanks for reaching out! I'll be in touch ASAP! 
             A confirmation message was also sent to ${email}`;
             res.redirect('/');
         } catch(err) {

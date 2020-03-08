@@ -9,7 +9,7 @@
         <title>Thanks for contacting me!</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
+        <!-- <style>
             body {
                 height:100vh;
                 font:14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -35,7 +35,7 @@
             .navbar, .footer {
                 width:100%;
                 padding:.5rem;
-                background-color:rgba(55, 37, 84, 1);;
+                background-color:rgba(55, 37, 84, 1);
                 color:white;
             }
             .navbar a {
@@ -73,28 +73,37 @@
             @media (min-width: 1200px) { 
                 
              }
-        </style>
+        </style> -->
     </head>
-    <body>
-        <table class="container">
-            <tr class="navbar">
-                <td>
-                    <a href="http://greenstreetimagining.com">
-                        <p>
+    <body style="width:100%;font:14px 'Lucida Grande', Helvetica, Arial, sans-serif;color:white;">
+        <table class="container" style="width:90%;min-height:300px;background-color:rgba(82, 82, 140, .5);margin:auto;color:white;border:none;border-collapse:collapse;">
+            <tr class="navbar" style="height:2rem;padding:.5rem 1rem;background-color:rgba(55, 37, 84, 1);color:white;">
+                <td style="padding:.5rem 1rem;font-size:20px;height:1.5rem;max-height:40px;vertical-align:top;" colspan="2">
+                    <a href="http://greenstreetimagining.com" style="color:white;text-decoration:none;">
+                        <p style="padding:0;margin:0;">
                             Greenstreet Imag{in}ing
                         </p>
                     </a>
                 </td>
             </tr>
-            <tr>
-                <td class="main">
+            <tr style="vertical-align:top;">
+                <td class="main" style="padding:.5rem 2rem;" colspan="2">
                     <h3>Hi <%= firstname %>!</h3>
-                    <p>Thanks for reaching out! I appreciate your interest, and I'll respond as soon as is convenient</p>
+                    <p>Thanks for reaching out! I appreciate your interest, and I'll respond as soon as I'm able.</p>
                 </td>
             </tr>
-            <tr class="footer">
-                <td>
+            <tr style="vertical-align:bottom;">
+                <td class="closing" style="padding:.5rem 2rem;" colspan="2">
+                    <p>All the best,</p>
+                    <h4>Robert Greenstreet</h4>
+                </td>
+            </tr>
+            <tr class="footer" style="height:3rem;background-color:rgba(55, 37, 84, 1);color:white;">
+                <td style="padding:.5rem 1rem;" id="copyright">
                     Copyright 2020 Robert Greenstreet
+                </td>
+                <td id="networks" style="padding:.5rem 1rem;text-align:right;">
+                    <a href="https://twitter.com/grnstimagining" style="color:white;text-decoration:none;">Twitter</a>&nbsp;|&nbsp;<a href="https://github.com/rgreenstreet" style="color:white;text-decoration:none;">Github</a>
                 </td>
             </tr>
         </table>
