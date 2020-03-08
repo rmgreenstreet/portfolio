@@ -15,10 +15,7 @@ module.exports = {
 	// GET /
 	async getLandingPage(req, res, next) {
         let projectImages = [];
-        const allImages = await cloudinary.v2.search
-        .expression('folder=portfolio/projects').execute();
-        // console.log('images:',allImages);
-
+        
         //use Heroku CLI to get list of all apps and send them to the page to loop through and display in carousel/grid
         const projects = await axios.get('https://api.heroku.com/apps',{headers: 
             {
@@ -28,6 +25,7 @@ module.exports = {
         });
         
         for(let project of projects.data) {
+            //use url2png to create a screenshot of each project's home page
             const projectImage = await cloudinary.image(project.web_url,{signed:true, type:'url2png'});
             projectImages.push(projectImage);
         }
@@ -37,7 +35,7 @@ module.exports = {
         res.render('index', { projects:projects.data, projectImages, title: 'Robert Greenstreet - Home', page:'home'});
     },
     async postContact(req,res,next) {
-        
-        res.session.success = `Your message has been sent! I'.. be in touch ASAP! A confirmation message was also sent to ${req.body.email}`
+
+        res.session.success = `Your message has been sent! I'll be in touch ASAP! A confirmation message was also sent to ${req.body.email}`
     }
 }

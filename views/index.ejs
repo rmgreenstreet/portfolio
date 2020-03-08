@@ -42,63 +42,44 @@
             <div class="row">
                 <div class="carousel-slide mb-4 col col-md-8 mx-auto">
                     <div class="carousel-inner">
+
                         <!-- loop over projects0 showing screenshots, names, descriptions each as a slide in the carousel -->
-                        <div class="carousel-item active">
-                            <img src="/images/sampleproject.png" alt="">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>First slide label</h5>
-                                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        <% for (let project of projects) { %>
+                            <div class="carousel-item project-slide<%= (projects.indexOf(project) === 0 ? ' active' : '') %>">
+                                <%- projectImages[projects.indexOf(project)] %>
+                                <div class="carousel-caption d-none d-md-block">
+                                    <a href="<%= project.web_url %>" target="_blank"><h5><%= project.name.replace('rgreenstreet-','').toUpperCase(); %></h5></a>
+                                </div>
                             </div>
-                        </div>
+                        <% } %>
                         <!-- end loop -->
+
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col col-md-10 mx-auto bg-transparent">
                     <div class="row">
+
                         <!-- loop over projects showing screenshots & names in a grid -->
                         <% for (let project of projects) { %>
-
+                            <% if(project.name.includes('portfolio')) { %>
+                                <% continue; %>
+                            <% } %>
                             <div class="col">
-                                <div class="card bg-transparent project">
-                                    <%- projectImages[projects.indexOf(project)] %>
-                                    <div class="card-body">
-                                        <h3 class="card-title"><%= project.name.replace('rgreenstreet-','').toUpperCase(); %></h3>
+                                <a href="<%= project.web_url %>" target="_blank">
+                                    <div class="card bg-transparent project-grid">
+                                        <%- projectImages[projects.indexOf(project)] %>
+                                        <div class="card-body">
+                                            <h3 class="card-title"><%= project.name.replace('rgreenstreet-','').toUpperCase(); %></h3>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
 
                         <% } %>
+                        <!-- end loop -->
                         
-
-
-
-
-                        <!-- <div class="col">
-                            <div class="card bg-transparent project">
-                                <img src="/images/sampleproject.png" alt="" class="card-img-top">
-                                <div class="card-body">
-                                    <h3 class="card-title">Project 1</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card bg-transparent project">
-                                <img src="/images/sampleproject.png" alt="" class="card-img-top">
-                                <div class="card-body">
-                                    <h3 class="card-title">Project 2</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card bg-transparent project">
-                                <img src="/images/sampleproject.png" alt="" class="card-img-top">
-                                <div class="card-body">
-                                    <h3 class="card-title">Project 3</h3>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>

@@ -112,6 +112,10 @@ section {
   color:rgb(37, 122, 150);
 }
 
+.project-slide {
+  min-height:200px;
+}
+
 #contact {
   height:auto;
   padding-bottom:60px;

@@ -67,9 +67,26 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
+//set local variables middleware
+app.use(function (req,res,next) {
+	//set default page title if one is not specified
+	res.locals.title='Surf Shop';
+	//set success flash message
+	res.locals.success = req.session.success || "";
+	//delete flash message after sending it to the page so it doesn't show again
+	delete req.session.success;
+	//set error flash message
+	res.locals.error = req.session.error || "";
+	//delete flash message after sending it to the page so it doesn't show again
+	delete req.session.error;
+	//continue on to the next function in the middlware/route chain
+	next();
+});
 
+//mount routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
