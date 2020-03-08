@@ -13,6 +13,7 @@ const middleware = {
 			max: 3, // start blocking after 3 requests
 			message:"Too many messages sent from this IP, please try again after a minute"
 		});
+		next();
 	} 
 };
 

@@ -45,19 +45,20 @@
 			  </div>
 			</nav>	
 		</header>
+		<div class="container flash">
+			<% if(success && success.length) { %>
+				<div class="alert alert-success">
+					<%= success %>
+				</div>
+			<% } %>
+			<% if(error && error.length) { %>
+				<div class="alert alert-danger">
+					<%= error %>
+				</div>
+			<% } %>
+		</div>
 		<main>	
-			<div class="container mt-6">
-				<% if(success && success.length) { %>
-					<div class="alert alert-success">
-						<%= success %>
-					</div>
-				<% } %>
-				<% if(error && error.length) { %>
-					<div class="alert alert-danger">
-						<%= error %>
-					</div>
-				<% } %>
-			</div>
+			
 			<!--[if lt IE 10]>
 				<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com">upgrade your browser</a> to improve your experience.</p>
 			<![endif]-->

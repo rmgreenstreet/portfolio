@@ -49,7 +49,8 @@ app.use(expressSession({
   expires: expiryDate
   }));
 app.use(passport.initialize());
-app.use(passport.session());app.disable('x-powered-by');
+app.use(passport.session());
+app.disable('x-powered-by');
 app.use(function(req, res, next){
 	res.locals.currentUser = req.user;
 	// res.locals.error = req.flash("error");
@@ -70,7 +71,7 @@ passport.deserializeUser(User.deserializeUser());
 //set local variables middleware
 app.use(function (req,res,next) {
 	//set default page title if one is not specified
-	res.locals.title='Surf Shop';
+	res.locals.title='Robert Greenstreet';
 	//set success flash message
 	res.locals.success = req.session.success || "";
 	//delete flash message after sending it to the page so it doesn't show again
@@ -85,7 +86,7 @@ app.use(function (req,res,next) {
 
 //mount routes
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 
 
 // catch 404 and forward to error handler
