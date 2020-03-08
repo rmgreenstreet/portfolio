@@ -50,11 +50,11 @@ module.exports = {
             await sgMail.send(response);
             await sgMail.send(alert);
             req.session.success = `Your message has been sent! I'll be in touch ASAP! 
-            A confirmation message was also sent to ${req.body.email}`;
+            A confirmation message was also sent to ${email}`;
             res.redirect('/');
         } catch(err) {
             console.log(err);
-            req.session.error=err.message;
+            req.session.error='There was an issue sending the message. Please try again';
             return res.redirect('/')
         }
     }
