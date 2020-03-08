@@ -2,15 +2,8 @@ require('dotenv');
 const { cloudinary } = require('../cloudinary');
 const axios = require('axios');
 const ejs = require('ejs');
-const fs = require('fs');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-// async function loginAfterChange (user,req,res) {
-//     console.log('logging back in after a change to account');
-//     const login = util.promisify(req.login.bind(req));
-//     await login(user);
-// };
 
 module.exports = {
 	// GET /
@@ -35,6 +28,7 @@ module.exports = {
     async postContact(req,res,next) {
         const { firstname, lastname, email, company } = req.body;
         try{
+            //render .ejs file into a string using values from contact form to send a response email to be sent through sendgrid
             const renderedHtml = await ejs.renderFile('./private/templates/contact.ejs', { firstname, lastname, email, company });
             const response = {
                 to:`${firstname} ${lastname} (${company}) <${email}>`,
@@ -42,9 +36,21 @@ module.exports = {
                 subject:'Thank you for contacting me!',
                 html:renderedHtml
             }
-            
+            //send an alert to myself about the contact
+            const alert = {
+                to:'rgreenstreetdev@gmail.com',
+                from:'rgreenstreetdev@gmail.com',
+                subject:`New contact from ${firstname} at ${company}`,
+                html:`<ul>
+                    <li>Name: ${firstname} ${lastname}</li>
+                    <li>Email: ${email}</li>
+                    <li>Company: ${company}</li>
+                </ul>`
+            }
             await sgMail.send(response);
-            req.session.success = `Your message has been sent! I'll be in touch ASAP! A confirmation message was also sent to ${req.body.email}`;
+            await sgMail.send(alert);
+            req.session.success = `Your message has been sent! I'll be in touch ASAP! 
+            A confirmation message was also sent to ${req.body.email}`;
             res.redirect('/');
         } catch(err) {
             console.log(err);

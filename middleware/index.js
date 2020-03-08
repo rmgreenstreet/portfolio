@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const { cloudinary } = require('../cloudinary');
+const rateLimiter = require('express-rate-limit');
 
 
 const middleware = {
@@ -69,7 +70,15 @@ const middleware = {
 		if (req.file) {	
 			await cloudinary.uploader.destroy(req.file.public_id);
 		}
-	}
+	},
+	postLimiter (req,res,next){
+		rateLimiter({
+			windowMs: 1000, // 1 second window
+			max: 3, // start blocking after 3 requests
+			message:"Too many messages sent from this IP, please try again after a minute"
+		});
+		next();
+	} 
 };
 
 module.exports=middleware;
