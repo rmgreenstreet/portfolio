@@ -1,10 +1,10 @@
-require('dotenv').config({ path: '.env' });
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const expressSession = require('express-session');
@@ -12,9 +12,10 @@ const User = require('./models/user');
 const methodOverride = require('method-override');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+// const usersRouter = require('./routes/users');
 
 const app = express();
+if (process.env.NODE_ENV !== 'production'){ require('dotenv').config(); }
 
 //connect to database
 // mongoose.connect(process.env.DATABASE_URL,{

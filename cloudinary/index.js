@@ -1,14 +1,15 @@
-require('dotenv');
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 const crypto = require('crypto');
 const cloudinary = require('cloudinary');
 const cloudinaryStorage = require('multer-storage-cloudinary');
 
 //configure cloudinary upload settings
 cloudinary.config({
-    cloud_name:'rgreenstreet',
+    cloud_name: 'rgreenstreet',
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
+
 
 const storage = cloudinaryStorage({
     cloudinary: cloudinary,

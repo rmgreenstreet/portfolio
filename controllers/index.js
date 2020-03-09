@@ -16,11 +16,14 @@ module.exports = {
             Authorization: `Bearer ${process.env.HEROKU_TOKEN}` /* token previously created using heroku CLI 'heroku authorizations:create' */
             }
         });
+        // console.log(projects.data);
         
         //get project images from cloudinary
         const projectImages = await cloudinary.v2.search
         .expression(`folder:portfolio/projects`)
         .execute();
+        
+        console.log(projectImages);
 
         res.render('index', { projects:projects.data, projectImages:projectImages.resources, title: 'Robert Greenstreet - Home', page:'home'});
     },
