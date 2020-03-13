@@ -23,10 +23,11 @@ module.exports = {
         .expression(`folder:portfolio/projects`)
         .execute();
         
-        console.log(projectImages);
+        // console.log(projectImages);
 
         res.render('index', { projects:projects.data, projectImages:projectImages.resources, title: 'Robert Greenstreet - Home', page:'home'});
     },
+    // POST
     async postContact(req,res,next) {
         const { firstname, lastname, email, company } = req.body;
         try{
