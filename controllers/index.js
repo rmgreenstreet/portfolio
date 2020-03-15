@@ -1,4 +1,6 @@
-require('dotenv');
+const express = require('express');
+const app = express();
+if (process.env.NODE_ENV !== 'production'){ require('dotenv').config(); }
 const { cloudinary } = require('../cloudinary');
 const axios = require('axios');
 const ejs = require('ejs');
